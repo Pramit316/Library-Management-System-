@@ -52,7 +52,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return  "====================== List Of Books ===========================\n" +
+        return  "================================================================\n" +
                 "Title: " + title + "\nAuthor Name: " + author + "\nAvailable: " + available + "\nPrice: " + price +
         "\n================================================================\n";
     }

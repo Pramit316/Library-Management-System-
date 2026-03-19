@@ -1,3 +1,4 @@
+import configuration.DBConnect;
 import controller.AdminController;
 import controller.UserController;
 

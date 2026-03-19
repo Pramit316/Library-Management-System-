@@ -61,14 +61,15 @@ public class AdminController {
 
     private void addNewBook() {
         boolean availableBool;
+        sc.nextLine();
         System.out.println("Enter the book title");
-        String title = sc.next();
+        String title = sc.nextLine();
 
         System.out.println("Enter Author Name");
-        String authorName = sc.next();
+        String authorName = sc.nextLine();
 
         System.out.println("Enter Availability");
-        String available = sc.next();
+        String available = sc.nextLine();
 
         if(available.equalsIgnoreCase("y") || available.equalsIgnoreCase("yes")) {
             availableBool = true;

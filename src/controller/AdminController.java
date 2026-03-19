@@ -1,5 +1,6 @@
 package controller;
 
+import model.Book;
 import repository.BookRepository;
 import service.BookService;
 
@@ -32,10 +33,10 @@ public class AdminController {
                     addNewBook();
                     break;
                 case 2:
-                    System.out.println("Book Removed");
+                    removeBook();
                     break;
                 case 3:
-                    System.out.println("Book Updated");
+                    updateBook();
                     break;
                 case 4:
                     bookService.findAllBook();
@@ -57,6 +58,43 @@ public class AdminController {
                     return;
             }
         }
+    }
+
+    private void updateBook() {
+        System.out.println("Enter the id of the book you want to edit: ");
+        int id = sc.nextInt();
+
+        sc.nextLine();
+        System.out.println("Enter book title");
+        String title = sc.nextLine();
+
+        System.out.println("Enter book author");
+        String author = sc.nextLine();
+
+        System.out.println("Enter book availability");
+        String available = sc.nextLine();
+
+        boolean availableBool;
+        if(available.equalsIgnoreCase("y") || available.equalsIgnoreCase("yes")) {
+            availableBool = true;
+        } else {
+            availableBool = false;
+        }
+
+        System.out.println("Enter book price");
+        float price = sc.nextFloat();
+
+        Book book = new Book(title, author, availableBool, price);
+
+        bookService.updateBook(id, book);
+    }
+
+    private void removeBook() {
+
+        System.out.println("Enter the id of the book you want to remove: ");
+        int id = sc.nextInt();
+
+        bookService.deleteBook(id);
     }
 
     private void addNewBook() {

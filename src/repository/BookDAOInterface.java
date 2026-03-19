@@ -5,7 +5,8 @@ import model.Book;
 public interface BookDAOInterface {
 
     void addBook(Book book);
-    void removeBook(int id);
+    void updateBook(int id, Book book);
     void findAllBook();
     void deleteBook(int id);
+    void getBookByID(int id);
 }

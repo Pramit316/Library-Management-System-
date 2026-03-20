@@ -15,4 +15,8 @@ public class UserService {
     public void findAllMembers(){
         userRepo.findAllMembers();
     }
+
+    public void viewRequestedMembers() {
+        userRepo.viewRequestedMember();
+    }
 }

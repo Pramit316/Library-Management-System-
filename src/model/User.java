@@ -5,7 +5,6 @@ public class User {
     String name;
     String role;
     int age;
-
     boolean isMember;
     long phone_number;
     String address;

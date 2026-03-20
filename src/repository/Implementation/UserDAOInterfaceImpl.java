@@ -47,7 +47,28 @@ public class UserDAOInterfaceImpl implements UserDAOInterface {
 
     @Override
     public void viewRequestedMember() {
+        String sql = "SELECT * FROM users WHERE ismember = false";
 
+        Connection con = connect.getConnection();
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+                System.out.println(
+                    "Name: " + rs.getString("name") +
+                    "\nPhone Number: " + rs.getLong("phone_number") +
+                    "\nRole: " + rs.getString("role") +
+                    "\nAge: " + rs.getInt("age") +
+                    "\nMember: " + rs.getBoolean("ismember") +
+                    "\nAddress: " + rs.getString("address") + "\n"
+                );
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

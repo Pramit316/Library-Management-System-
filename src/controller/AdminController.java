@@ -21,45 +21,86 @@ public class AdminController {
             System.out.println("2. Remove book");
             System.out.println("3. Update Book Details");
             System.out.println("4. View Books");
-            System.out.println("5. Add Member");
-            System.out.println("6. View All Members");
-            System.out.println("7. Delete Member");
-            System.out.println("8. Exit to Main Menu");
+            System.out.println("5. Member Action Menu");
+            System.out.println("6. Exit to Main Menu");
 
             int choice = sc.nextInt();
+            sc.nextLine();
 
             switch (choice) {
 
                 case 1:
                     addNewBook();
                     break;
+
                 case 2:
                     removeBook();
                     break;
+
                 case 3:
                     updateBook();
                     break;
+
                 case 4:
                     bookService.findAllBook();
-                    System.out.println("Press any key to continue.....");
-                    sc.nextLine();
+                    System.out.println("Press Enter to continue.....");
                     sc.nextLine();
                     break;
+
                 case 5:
-                    addMember();
+                    memberActionMenu();
                     break;
+
                 case 6:
-                    userService.findAllMembers();
-                    System.out.println("Press any key to continue.....");
-                    sc.nextLine();
-                    sc.nextLine();
-                    break;
-                case 7:
-                    System.out.println("New Member Deleted");
-                    break;
-                case 8:
                     System.out.println("Back to main menu.....");
                     return;
+
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        }
+    }
+
+    private void memberActionMenu() {
+        while (true) {
+            System.out.println("=======++Member Action Menu++==========");
+            System.out.println("1. Add Member");
+            System.out.println("2. View All Members");
+            System.out.println("3. View Requested Membership");
+            System.out.println("4. Delete Member");
+            System.out.println("5. Back to Admin Menu");
+
+            int choice = sc.nextInt();
+            sc.nextLine();
+
+            switch (choice) {
+
+                case 1:
+                    addMember();
+                    break;
+
+                case 2:
+                    userService.findAllMembers();
+                    System.out.println("Press Enter to continue.....");
+                    sc.nextLine();
+                    break;
+
+                case 3:
+                    userService.viewRequestedMembers();
+                    System.out.println("Press Enter to continue.....");
+                    sc.nextLine();
+                    break;
+
+                case 4:
+                    System.out.println("Member Deleted");
+                    break;
+
+                case 5:
+                    System.out.println("Back to Admin Console.....");
+                    return;
+
+                default:
+                    System.out.println("Invalid choice!");
             }
         }
     }

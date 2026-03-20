@@ -125,17 +125,25 @@ public class UserDAOInterfaceImpl implements UserDAOInterface {
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
-                return new User(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("role"),
-                        rs.getInt("age"),
-                        rs.getBoolean("ismember"),
-                        rs.getLong("phone_number"),
-                        rs.getString("address")
-                );
+            if(!rs.next()) {
+                System.out.println("Please Apply for Membership!");
+                return null;
             }
+
+            if (!rs.getBoolean("ismember")) {
+                System.out.println("User membership request is still processing!");
+                return null;
+            }
+
+            return new User(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("role"),
+                    rs.getInt("age"),
+                    rs.getBoolean("ismember"),
+                    rs.getLong("phone_number"),
+                    rs.getString("address")
+            );
         } catch (SQLException e) {
             System.out.println("There was an error finding all members!!!\n" + e);
         }

@@ -11,6 +11,7 @@ public class UserController {
     private final Scanner sc = new Scanner(System.in);
     private final UserService userService = new UserService();
     private final BookService bookService = new BookService();
+    private User user;
 
     public void display() {
         while (true) {
@@ -44,7 +45,10 @@ public class UserController {
         String username =  sc.nextLine();
         User user = userService.login(username);
 
-        userMenu(user);
+        if(user != null) {
+            this.user = user;
+            userMenu(user);
+        }
     }
 
     private void requestMembership() {
@@ -80,13 +84,13 @@ public class UserController {
             System.out.println("======= User Menu =======");
             System.out.println("1. View Books");
             System.out.println("2. Borrow Book");
-            System.out.println("3. Add Book to Cart");
+            System.out.println("3. My Borrowing");
             System.out.println("4. Exit");
             System.out.println("5. Logout");
 
             System.out.print("Enter your choice: ");
             int choice = sc.nextInt();
-            sc.nextLine(); // clear buffer
+            sc.nextLine();
 
             switch (choice) {
                 case 1:
@@ -96,7 +100,7 @@ public class UserController {
                     borrowBook();
                     break;
                 case 3:
-                    addToCart();
+                    myBooks();
                     break;
                 case 4:
                     System.out.println("Exiting");
@@ -110,10 +114,48 @@ public class UserController {
         }
     }
 
-    private void addToCart() {
+    private void myBooks() {
+        bookService.myBooks(user.getId());
     }
 
     private void borrowBook() {
+
+        int id = user.getId();
+        String name = user.getName();
+
+        while (true) {
+            System.out.println("========= Borrow Book =========");
+            System.out.println("1. Borrow by Book ID");
+            System.out.println("2. Borrow by Book Name");
+            System.out.println("3. Back");
+
+            System.out.print("Enter choice: ");
+            int choice = sc.nextInt();
+            sc.nextLine();
+            switch (choice) {
+                case 1:
+
+                    System.out.println("Borrowing book for name: " + name + " | ID: " + id);
+                    System.out.print("Enter Book ID: ");
+                    int bookId = sc.nextInt();
+                    sc.nextLine();
+
+                    bookService.borrowBookById(id, bookId);
+                    System.out.println("Press Enter to continue...");
+                    sc.nextLine();
+                    break;
+
+                case 2:
+                    System.out.println("This feature will be available soon!!!");
+                    break;
+
+                case 3:
+                    return;
+
+                default:
+                    System.out.println("Invalid choice! Try again.");
+            }
+        }
     }
 
     private void viewBooks() {

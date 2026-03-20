@@ -27,4 +27,12 @@ public class BookService {
     public void deleteBook(int id){
         bookRepo.deleteBook(id);
     }
+
+    public void borrowBookById(int userId, int bookId) {
+        bookRepo.borrowBookById(userId,bookId);
+    }
+
+    public void myBooks(int id) {
+        bookRepo.myBorrowedBooks(id);
+    }
 }

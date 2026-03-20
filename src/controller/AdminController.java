@@ -97,7 +97,7 @@ public class AdminController {
                     break;
 
                 case 5:
-                    System.out.println("Member Deleted");
+                    System.out.println("You cant delete member at the moment!!");
                     break;
 
                 case 6:

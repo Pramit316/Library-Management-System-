@@ -9,4 +9,9 @@ public interface BookDAOInterface {
     void findAllBook();
     void deleteBook(int id);
     void getBookByID(int id);
+
+
+    boolean borrowBookById(int userId, int bookId);
+
+    void myBorrowedBooks(int id);
 }

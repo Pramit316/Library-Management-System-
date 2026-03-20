@@ -1,15 +1,16 @@
 package controller;
 
 import model.Book;
-import repository.BookRepository;
+import model.User;
 import service.BookService;
+import service.UserService;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 public class AdminController {
 
     BookService bookService = new BookService();
+    UserService userService = new UserService();
     Scanner sc = new Scanner(System.in);
 
     public void display() {
@@ -21,7 +22,7 @@ public class AdminController {
             System.out.println("3. Update Book Details");
             System.out.println("4. View Books");
             System.out.println("5. Add Member");
-            System.out.println("6. Update Member");
+            System.out.println("6. View All Members");
             System.out.println("7. Delete Member");
             System.out.println("8. Exit to Main Menu");
 
@@ -45,10 +46,13 @@ public class AdminController {
                     sc.nextLine();
                     break;
                 case 5:
-                    System.out.println("New Member Added");
+                    addMember();
                     break;
                 case 6:
-                    System.out.println("New Member Updated");
+                    userService.findAllMembers();
+                    System.out.println("Press any key to continue.....");
+                    sc.nextLine();
+                    sc.nextLine();
                     break;
                 case 7:
                     System.out.println("New Member Deleted");
@@ -58,6 +62,30 @@ public class AdminController {
                     return;
             }
         }
+    }
+
+    private void addMember() {
+        boolean isMember;
+        sc.nextLine();
+        System.out.println("Enter the name of member");
+        String name = sc.nextLine();
+
+        System.out.println("Enter the age of member");
+        int age = sc.nextInt();
+
+        System.out.println("Enter phone number");
+        long phone = sc.nextLong();
+
+        sc.nextLine();
+        System.out.println("Enter address");
+        String address = sc.nextLine();
+
+        System.out.println("Enter role of the user: (member or admin)");
+        String role = sc.nextLine().toLowerCase().trim();
+
+        User user = new User(name, role,age, true, phone, address);
+
+        userService.addMember(user);
     }
 
     private void updateBook() {

@@ -2,6 +2,7 @@ package model;
 
 public class User {
 
+    int id;
     String name;
     String role;
     int age;
@@ -16,6 +17,27 @@ public class User {
         this.isMember = isMember;
         this.phone_number = phone_number;
         this.address = address;
+    }
+
+    public User(int id, String name, String role, int age, boolean isMember, long phone_number, String address) {
+        this(name, role, age, isMember, phone_number, address);
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public long getPhone_number() {
+        return phone_number;
+    }
+
+    public void setPhone_number(long phone_number) {
+        this.phone_number = phone_number;
     }
 
     public void setName(String name) {

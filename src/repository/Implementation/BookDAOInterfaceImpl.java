@@ -60,7 +60,7 @@ public class BookDAOInterfaceImpl implements BookDAOInterface {
             ResultSet rs =  ps.executeQuery();
             System.out.println("------List of all the Books!-------");
             while(rs.next()){
-                System.out.println("\nID: " + rs.getInt("id") + "\nTitle: " + rs.getString("title") + "\nAuthor: " + rs.getString("author") + "\nAvailable: " + rs.getBoolean("available") + "\nPrice: " + rs.getFloat("price"));
+                System.out.println("\nID: " + rs.getInt("id") + "\nTitle: " + rs.getString("title") + "\nAuthor: " + rs.getString("author") + "\nAvailable: " + rs.getBoolean("available") + "\nPrice: Rs " + rs.getFloat("price") + "\nQuantity: " + rs.getInt("quantity"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -100,7 +100,8 @@ public class BookDAOInterfaceImpl implements BookDAOInterface {
                         "\nTitle: " + rs.getString("title") +
                         "\nAuthor: " + rs.getString("author") +
                         "\nAvailable: " + rs.getBoolean("available") +
-                        "\nPrice: " + rs.getDouble("price")
+                        "\nPrice: Rs " + rs.getDouble("price") +
+                        "\nQuantity: " + rs.getInt("quantity")
                 );
             } else {
                 System.out.println("No book found with ID: " + id);

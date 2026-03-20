@@ -11,4 +11,6 @@ public interface UserDAOInterface {
     void viewRequestedMember();
     void acceptRequest(int id);
     void findAllMembers();
+
+    User login(String username);
 }

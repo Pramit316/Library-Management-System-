@@ -40,8 +40,11 @@ public class UserController {
     }
 
     void login() {
-        System.out.println("You are Logged in\n");
-        userMenu();
+        System.out.println("Enter the username\n");
+        String username =  sc.nextLine();
+        User user = userService.login(username);
+
+        userMenu(user);
     }
 
     private void requestMembership() {
@@ -71,7 +74,8 @@ public class UserController {
         System.out.println("Membership request submitted successfully.");
     }
 
-    private void userMenu() {
+    private void userMenu(User user) {
+        System.out.println("Logged in with user: " + user.getName());
         while (true) {
             System.out.println("======= User Menu =======");
             System.out.println("1. View Books");
@@ -95,7 +99,7 @@ public class UserController {
                     addToCart();
                     break;
                 case 4:
-                    Exit();
+                    System.out.println("Exiting");
                     return;
                 case 5:
                     System.out.println("Logging out...");
@@ -106,9 +110,6 @@ public class UserController {
         }
     }
 
-    private void Exit() {
-    }
-
     private void addToCart() {
     }
 
@@ -116,6 +117,6 @@ public class UserController {
     }
 
     private void viewBooks() {
-        
+        bookService.findAllBook();
     }
 }

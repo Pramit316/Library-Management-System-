@@ -67,8 +67,9 @@ public class AdminController {
             System.out.println("1. Add Member");
             System.out.println("2. View All Members");
             System.out.println("3. View Requested Membership");
-            System.out.println("4. Delete Member");
-            System.out.println("5. Back to Admin Menu");
+            System.out.println("4. Accept Membership");
+            System.out.println("5. Delete Member");
+            System.out.println("6. Back to Admin Menu");
 
             int choice = sc.nextInt();
             sc.nextLine();
@@ -92,10 +93,14 @@ public class AdminController {
                     break;
 
                 case 4:
-                    System.out.println("Member Deleted");
+                    acceptMembership();
                     break;
 
                 case 5:
+                    System.out.println("Member Deleted");
+                    break;
+
+                case 6:
                     System.out.println("Back to Admin Console.....");
                     return;
 
@@ -103,6 +108,18 @@ public class AdminController {
                     System.out.println("Invalid choice!");
             }
         }
+    }
+
+    private void acceptMembership() {
+        System.out.println("Enter the ID of the member to accept membership:");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        userService.acceptMembership(id);
+
+        System.out.println("Membership status updated successfully.");
+        System.out.println("Press Enter to continue.....");
+        sc.nextLine();
     }
 
     private void addMember() {
@@ -153,7 +170,10 @@ public class AdminController {
         System.out.println("Enter book price");
         float price = sc.nextFloat();
 
-        Book book = new Book(title, author, availableBool, price);
+        System.out.println("Enter Quantity");
+        int quantity = sc.nextInt();
+
+        Book book = new Book(title, author, availableBool, price, quantity);
 
         bookService.updateBook(id, book);
     }
@@ -187,6 +207,9 @@ public class AdminController {
         System.out.println("Enter the price of the book");
         float price = sc.nextFloat();
 
-        bookService.addNewBook(title, authorName, availableBool, price);
+        System.out.println("Enter Quantity");
+        int quantity = sc.nextInt();
+
+        bookService.addNewBook(title, authorName, availableBool, price, quantity);
     }
 }

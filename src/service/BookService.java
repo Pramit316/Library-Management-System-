@@ -8,9 +8,9 @@ public class BookService {
 
     BookDAOInterface bookRepo = new BookDAOInterfaceImpl();
 
-    public void addNewBook(String title, String authorName, boolean availableBool, float price) {
+    public void addNewBook(String title, String authorName, boolean availableBool, float price, int quantity) {
 
-        Book book = new Book(title, authorName, availableBool, price);
+        Book book = new Book(title, authorName, availableBool, price, quantity);
 
         bookRepo.addBook(book);
     }

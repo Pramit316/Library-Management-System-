@@ -6,17 +6,16 @@ public class Book {
     String author;
     boolean available;
     float price;
+    int quantity;
 
-    public Book(String title, String author, boolean available , float price) {
+    public Book(String title, String author, boolean available , float price, int quantity) {
         this.title = title;
         this.author = author;
         this.available = available;
         this.price = price;
+        this.quantity = quantity;
     }
 
-    public Book(String title, String author, float price) {
-        this(title, author, false, price);
-    }
 
     public void setTitle(String title) {
         this.title = title;

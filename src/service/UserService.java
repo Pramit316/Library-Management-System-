@@ -19,4 +19,12 @@ public class UserService {
     public void viewRequestedMembers() {
         userRepo.viewRequestedMember();
     }
+
+    public void acceptMembership(int id) {
+        userRepo.acceptRequest(id);
+    }
+
+    public User login(String username) {
+        return userRepo.login(username);
+    }
 }

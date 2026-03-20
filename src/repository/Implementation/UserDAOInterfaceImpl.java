@@ -58,7 +58,8 @@ public class UserDAOInterfaceImpl implements UserDAOInterface {
 
             while(rs.next()){
                 System.out.println(
-                    "Name: " + rs.getString("name") +
+                    "Id: " + rs.getInt("id") +
+                    "\nName: " + rs.getString("name") +
                     "\nPhone Number: " + rs.getLong("phone_number") +
                     "\nRole: " + rs.getString("role") +
                     "\nAge: " + rs.getInt("age") +
@@ -73,12 +74,22 @@ public class UserDAOInterfaceImpl implements UserDAOInterface {
 
     @Override
     public void acceptRequest(int id) {
+        String sql = "UPDATE users SET ismember = true WHERE id = (?)";
 
+        Connection con = connect.getConnection();
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("There was some error that occured while accepting membership\n" + e);
+        }
     }
 
     @Override
     public void findAllMembers() {
-        String sql = "SELECT * FROM users";
+        String sql = "SELECT * FROM users WHERE ismember = true";
 
         Connection con = connect.getConnection();
 
@@ -89,7 +100,8 @@ public class UserDAOInterfaceImpl implements UserDAOInterface {
             System.out.println("\n------List of all the Members!-------");
             while(resultSet.next()){
                 System.out.println(
-                        "Name: " + resultSet.getString("name") +
+                        "Id: " + resultSet.getInt("id") +
+                        "\nName: " + resultSet.getString("name") +
                         "\nPhone Number: " + resultSet.getLong("phone_number") +
                         "\nRole: " + resultSet.getString("role") +
                         "\nAge: " + resultSet.getInt("age") +
@@ -100,5 +112,33 @@ public class UserDAOInterfaceImpl implements UserDAOInterface {
         } catch (SQLException e) {
             System.out.println("There was an error finding all members!!!\n" + e);
         }
+    }
+
+    @Override
+    public User login(String username) {
+        String sql = "SELECT * FROM users WHERE name = (?)";
+
+        Connection con = connect.getConnection();
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return new User(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("role"),
+                        rs.getInt("age"),
+                        rs.getBoolean("ismember"),
+                        rs.getLong("phone_number"),
+                        rs.getString("address")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("There was an error finding all members!!!\n" + e);
+        }
+        return null;
     }
 }

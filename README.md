@@ -247,3 +247,11 @@ String password = "your_postgres_password";
 
 ### 5. Run the application
 Run the Main.java file from your IDE.
+
+---
+
+## Author
+
+**Pramit Bhattarai**  
+Bachelor of Computer Engineering student passionate about software development, backend systems, and full-stack engineering. This project reflects practical learning in Java, JDBC, PostgreSQL, and database-driven application design.
+

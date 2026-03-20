@@ -192,8 +192,8 @@ Make sure you have the following installed:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/your-repository-name.git
-cd your-repository-name
+git clone https://github.com/Pramit316/Library-Management-System-.git 
+cd Library-Management-System-
 ```
 
 ### 2. Create the PostgreSQL database

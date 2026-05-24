@@ -2,13 +2,15 @@
 
 # Library Management System
 
-A console-based **Library Management System** built with **Java**, **JDBC**, and **PostgreSQL**.  
-This project is designed to manage users, books, memberships, and borrowing operations in a simple, structured, and database-driven way.
+A console-based **Library Management System** built with **Java**, **Maven**, **JDBC**, and **PostgreSQL**.
+
+This project is designed to manage users, books, memberships, and borrowing operations in a simple, structured, and database-driven way. It started as a core Java project and now uses Maven to manage dependencies, project structure, and build configuration.
 
 <br>
 
-![Java](https://img.shields.io/badge/Java-17+-orange?style=for-the-badge&logo=openjdk)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue?style=for-the-badge&logo=postgresql)
+![Java](https://img.shields.io/badge/Java-17+-orange?style=for-the-badge\&logo=openjdk)
+![Maven](https://img.shields.io/badge/Maven-Build%20Tool-red?style=for-the-badge\&logo=apachemaven)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue?style=for-the-badge\&logo=postgresql)
 ![JDBC](https://img.shields.io/badge/JDBC-Connectivity-green?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Project-Active-success?style=for-the-badge)
 
@@ -18,65 +20,96 @@ This project is designed to manage users, books, memberships, and borrowing oper
 
 ## Overview
 
-This project is a **menu-driven library management application** developed in Java. It uses **JDBC** to connect to a **PostgreSQL** database and supports core library operations such as:
+This project is a **menu-driven library management application** developed in Java. It uses **JDBC** to connect to a **PostgreSQL** database and supports core library operations such as user management, book management, membership handling, and borrowing records.
 
-- managing users and members
-- storing and viewing books
-- borrowing books
-- tracking active borrowed books
-- handling membership approval logic
+The project demonstrates practical Java backend fundamentals, including:
 
-The application demonstrates practical concepts including:
+* object-oriented programming
+* layered architecture
+* database connectivity using JDBC
+* CRUD operations
+* relational database design
+* Maven-based dependency management
+* user-specific borrowing records
 
-- object-oriented programming
-- layered architecture
-- database connectivity with JDBC
-- CRUD operations
-- relational database design
-- user-specific data handling
+---
+
+## Why Maven Is Added
+
+This project uses **Maven** to manage the project setup and external dependencies.
+
+Earlier, the PostgreSQL JDBC driver was added manually as an external `.jar` file. With Maven, that is no longer required. The PostgreSQL driver is now declared inside the `pom.xml` file, and Maven automatically downloads and manages it.
+
+This makes the project easier to run on another computer because the required dependencies are part of the project configuration.
 
 ---
 
 ## Features
 
 ### User Management
-- Add new users or members
-- View all members
-- Process membership requests
-- Delete members
-- Login using username
+
+* Add new users or members
+* View all members
+* Process membership requests
+* Delete members
+* Login using username
 
 ### Book Management
-- Add new books
-- View all books
-- Search books by ID or title
-- Maintain available book quantity
+
+* Add new books
+* View all books
+* Search books by ID or title
+* Maintain available book quantity
 
 ### Borrowing System
-- Borrow books by **Book ID**
-- Borrow books by **Book Title**
-- View books currently borrowed by a specific user
-- Automatically reduce book quantity when borrowed
-- Store borrowing records separately for proper tracking
+
+* Borrow books by **Book ID**
+* Borrow books by **Book Title**
+* View books currently borrowed by a specific user
+* Automatically reduce book quantity when borrowed
+* Store borrowing records separately for proper tracking
 
 ### Validation and Rules
-- Only approved members can borrow books
-- Users with pending membership cannot access borrowing features
-- Books cannot be borrowed when stock is unavailable
-- Borrowing records are linked to individual users
+
+* Only approved members can borrow books
+* Users with pending membership cannot access borrowing features
+* Books cannot be borrowed when stock is unavailable
+* Borrowing records are linked to individual users
 
 ---
 
 ## Tech Stack
 
-- **Language:** Java
-- **Database:** PostgreSQL
-- **Database Connectivity:** JDBC
-- **Architecture Style:** Layered Architecture
-  - Controller Layer
-  - Service Layer
-  - Repository/DAO Layer
-  - Model Layer
+* **Language:** Java 17+
+* **Build Tool:** Maven
+* **Database:** PostgreSQL
+* **Database Connectivity:** JDBC
+* **Architecture Style:** Layered Architecture
+
+  * Controller Layer
+  * Service Layer
+  * Repository/DAO Layer
+  * Model Layer
+
+---
+
+## Maven Configuration
+
+The project uses a `pom.xml` file for Maven configuration.
+
+Example dependency used for PostgreSQL JDBC:
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>42.7.4</version>
+    </dependency>
+</dependencies>
+```
+
+This means the PostgreSQL JDBC driver does not need to be manually added as an external library in the IDE.
 
 ---
 
@@ -89,36 +122,39 @@ The project uses relational tables to keep the system structured and consistent.
 Stores information about system users and members.
 
 **Fields**
-- `id`
-- `name`
-- `role`
-- `age`
-- `ismember`
-- `phone_number`
-- `address`
+
+* `id`
+* `name`
+* `role`
+* `age`
+* `ismember`
+* `phone_number`
+* `address`
 
 ### `book` table
 
 Stores book details available in the library.
 
 **Fields**
-- `id`
-- `title`
-- `author`
-- `quantity`
+
+* `id`
+* `title`
+* `author`
+* `quantity`
 
 ### `borrowing` table
 
 Stores borrowing records separately from books and users.
 
 **Fields**
-- `id`
-- `user_id`
-- `book_id`
-- `borrow_date`
-- `due_date`
-- `return_date`
-- `status`
+
+* `id`
+* `user_id`
+* `book_id`
+* `borrow_date`
+* `due_date`
+* `return_date`
+* `status`
 
 ---
 
@@ -126,11 +162,11 @@ Stores borrowing records separately from books and users.
 
 Instead of only reducing the number of books in stock, the project uses a separate `borrowing` table. This makes the system more realistic and allows it to:
 
-- track which user borrowed a book
-- record borrow and due dates
-- display currently borrowed books
-- maintain borrowing history
-- separate active borrowings from returned records
+* track which user borrowed a book
+* record borrow and due dates
+* display currently borrowed books
+* maintain borrowing history
+* separate active borrowings from returned records
 
 This design reflects how a proper library system should be structured in a relational database.
 
@@ -140,15 +176,27 @@ This design reflects how a proper library system should be structured in a relat
 
 ### User Authentication
 
-The system allows users to log in using their username. During login, the application checks whether the user exists in the database and whether their membership has been approved. Only approved members are allowed to access borrowing features.
+The system allows users to log in using their username. During login, the application checks whether the user exists in the database and whether their membership has been approved.
+
+Only approved members are allowed to access borrowing features.
 
 ### Book Borrowing
 
-Once logged in, a user can borrow a book by selecting it through its ID or title. The system verifies that the selected book exists and that there is sufficient quantity available. If valid, a borrowing record is inserted into the `borrowing` table and the book quantity is reduced accordingly.
+Once logged in, a user can borrow a book by selecting it through its ID or title.
+
+The system verifies that:
+
+* the selected book exists
+* the book has available quantity
+* the logged-in user is an approved member
+
+If the borrowing request is valid, a borrowing record is inserted into the `borrowing` table and the book quantity is reduced.
 
 ### User-Specific Borrowed Books
 
-The system supports user-specific borrowing records. Each logged-in user can view only the books they have personally borrowed. Borrowed book details are displayed by joining the `borrowing` and `book` tables and filtering the results by the current user's `user_id`.
+The system supports user-specific borrowing records. Each logged-in user can view only the books they have personally borrowed.
+
+Borrowed book details are displayed by joining the `borrowing` and `book` tables and filtering the result by the current user's `user_id`.
 
 ### Multi-User Support
 
@@ -171,7 +219,6 @@ JOIN book b ON br.book_id = b.id
 WHERE br.user_id = ? AND br.status = 'BORROWED';
 ```
 
-
 ---
 
 ## Getting Started
@@ -180,10 +227,12 @@ WHERE br.user_id = ? AND br.status = 'BORROWED';
 
 Make sure you have the following installed:
 
-- Java JDK 17+
-- PostgreSQL
-- An IDE such as IntelliJ IDEA, Eclipse, or VS Code
-- PostgreSQL JDBC Driver
+* Java JDK 17 or above
+* Maven
+* PostgreSQL
+* An IDE such as IntelliJ IDEA, Eclipse, or VS Code
+
+You do not need to manually download the PostgreSQL JDBC driver because Maven manages it through `pom.xml`.
 
 ---
 
@@ -192,18 +241,27 @@ Make sure you have the following installed:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/Pramit316/Library-Management-System-.git 
+git clone https://github.com/Pramit316/Library-Management-System-.git
 cd Library-Management-System-
 ```
 
-### 2. Create the PostgreSQL database
+### 2. Check Maven installation
 
 ```bash
+mvn -v
+```
+
+If Maven is installed correctly, this command should show the Maven version and Java version.
+
+### 3. Create the PostgreSQL database
+
+```sql
 CREATE DATABASE library_management;
 ```
 
-### 3. Create the required tables
-You can create the tables manually or by using a schema.sql file.
+### 4. Create the required tables
+
+You can create the tables manually or by using a `schema.sql` file.
 
 ```sql
 CREATE TABLE users (
@@ -236,22 +294,75 @@ CREATE TABLE borrowing (
 );
 ```
 
-### 4. Configure database connection
-Update your connection class with your PostgreSQL credentials.
+### 5. Configure database connection
 
-```Java
+Update your database connection class with your PostgreSQL credentials.
+
+```java
 String url = "jdbc:postgresql://localhost:5432/library_management";
 String username = "your_postgres_username";
 String password = "your_postgres_password";
 ```
 
-### 5. Run the application
-Run the Main.java file from your IDE.
+### 6. Build the project using Maven
+
+```bash
+mvn clean compile
+```
+
+This command checks whether the project compiles successfully.
+
+### 7. Run the application
+
+You can run the project from your IDE by running the `Main.java` file.
+
+If you configure a Maven execution plugin later, the project can also be run directly using Maven.
+
+---
+
+## Useful Maven Commands
+
+```bash
+mvn clean
+```
+
+Removes the `target` folder and old compiled files.
+
+```bash
+mvn compile
+```
+
+Compiles the source code.
+
+```bash
+mvn clean compile
+```
+
+Cleans the old build files and compiles the project again.
+
+```bash
+mvn package
+```
+
+Packages the project into a `.jar` file inside the `target` folder.
+
+---
+
+## Future Improvements
+
+Possible future improvements include:
+
+* adding JUnit tests
+* adding return book functionality
+* adding fine calculation for overdue books
+* improving input validation
+* creating a proper executable `.jar`
+* converting the project into a Spring Boot REST API later
 
 ---
 
 ## Author
 
-**Pramit Bhattarai**  
-Bachelor of Computer Engineering student passionate about software development, backend systems, and full-stack engineering. This project reflects practical learning in Java, JDBC, PostgreSQL, and database-driven application design.
+**Pramit Bhattarai**
 
+Bachelor of Computer Engineering, passionate about software development, backend systems, and full-stack engineering. This project reflects practical learning in Java, Maven, JDBC, PostgreSQL, and database-driven application design.
